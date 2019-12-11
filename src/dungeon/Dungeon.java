@@ -57,9 +57,9 @@ public class Dungeon {
 
     public void init() {
         board = new Board(width, height);
-        coordinateSystem = new CoordinateSystem(board);
+        coordinateSystem = new CoordinateSystem(board, vampires);
         player = new Player(turns, board, coordinateSystem);
-        vampire = new Vampire(vampires, board);
+        vampire = new Vampire(vampires, board, coordinateSystem);
     }
 
     public void run() {
@@ -69,6 +69,7 @@ public class Dungeon {
                 break;
             }
             coordinateSystem.placePlayer(moves);
+            coordinateSystem.placeVampires();
             player.takeTurn(true);
         }
     }
