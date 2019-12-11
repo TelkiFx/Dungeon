@@ -2,18 +2,19 @@ package dungeon.entities;
 
 import dungeon.board.Board;
 import dungeon.board.CoordinateSystem;
+import java.util.List;
 
 public class Player {
 
+    private int turns;
+
     private Board board;
     private CoordinateSystem coordinateSystem;
-    private int turns;
 
     public Player(int turns, Board board, CoordinateSystem coordinateSystem) {
         this.turns = turns;
         this.board = board;
         this.coordinateSystem = coordinateSystem;
-        this.coordinateSystem.placePlayer("");
         takeTurn(false);
     }
 
@@ -22,13 +23,22 @@ public class Player {
             turns--;
         }
         System.out.println(turns + "\n");
-        coordinates();
+        printCoordinates();
+        System.out.println(coordinateSystem.getPlayerCoords());
+        System.out.println(coordinateSystem.getVampireLocations());
+        for (List<Integer> vampireCoords : coordinateSystem.getVampireLocations()) {
+            System.out.print("v ");
+            for (int coord : vampireCoords) {
+                System.out.print(coord + " ");
+            }
+            System.out.println();
+        }
         System.out.println();
         board.draw();
     }
 
-    public void coordinates() {
-        System.out.println("@ " + coordinateSystem.getX() + " " + coordinateSystem.getY());
+    public void printCoordinates() {
+        System.out.println("@ " + coordinateSystem.getPlayerX() + " " + coordinateSystem.getPlayerY());
     }
 
 }
