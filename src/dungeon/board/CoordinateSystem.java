@@ -1,15 +1,20 @@
 package dungeon.board;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
 public class CoordinateSystem {
 
     private Points playerPoint;
+    private Points vampirePoint;
 
-    private int x;
-    private int y;
+    private int playerX;
+    private int playerY;
+    private int vampireX;
+    private int vampireY;
     private int width;
     private int height;
     private int numVampires;
@@ -32,38 +37,48 @@ public class CoordinateSystem {
         for (char move : moves.toCharArray()) {
             switch (move) {
                 case 'w':
-                    if (y - 1 >= 0) {
-                        y -= 1;
+                    if (playerY - 1 >= 0) {
+                        playerY -= 1;
                     }
                     break;
                 case 'a':
-                    if (x - 1 >= 0) {
-                        x -= 1;
+                    if (playerX - 1 >= 0) {
+                        playerX -= 1;
                     }
                     break;
                 case 's':
-                    if (y + 1 < height) {
-                        y += 1;
+                    if (playerY + 1 < height) {
+                        playerY += 1;
                     }
                     break;
                 case 'd':
-                    if (x + 1 < width) {
-                        x += 1;
+                    if (playerX + 1 < width) {
+                        playerX += 1;
                     }
                     break;
             }
         }
         board.build();
-        board.getBoard()[y][x] = "@";
-        playerPoint = new Points(x, y);
+        board.getBoard()[playerY][playerX] = "@";
+        playerPoint = new Points(playerX, playerY);
+
+        List<Points> toBeRemoved = new ArrayList<Points>();
+        for (Points point : vampireLocations) {
+            if (playerPoint.equals(point)) {
+                toBeRemoved.add(point);
+                System.out.println(vampireLocations.size());
+                numVampires--;
+            }
+        }
+        vampireLocations.removeAll(toBeRemoved);
     }
 
     public void placeVampires() {
         vampireLocations.clear();
         while (vampireLocations.size() < numVampires) {
-            int vampireX = random.nextInt(10);
-            int vampireY = random.nextInt(10);
-            Points vampirePoint = new Points(vampireX, vampireY);
+            vampireX = random.nextInt(10);
+            vampireY = random.nextInt(10);
+            vampirePoint = new Points(vampireX, vampireY);
             if (!vampirePoint.equals(playerPoint)) {
                 vampireLocations.add(vampirePoint);
                 board.getBoard()[vampireY][vampireX] = "v";
@@ -75,16 +90,17 @@ public class CoordinateSystem {
         return vampireLocations;
     }
 
-    public Points getPlayerCoords() {
+    public Points getPlayerPoint() {
         return playerPoint;
     }
 
-    public int getPlayerX() {
-        return x;
-    }
-
-    public int getPlayerY() {
-        return y;
+    public void print() {
+        Set<Points> vampireLocations = getVampireLocations();
+        Points playerPoint = getPlayerPoint();
+        System.out.println("@ " + playerPoint);
+        for (Points point : vampireLocations) {
+            System.out.println("v " + point);
+        }
     }
 
 }
