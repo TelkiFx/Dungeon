@@ -1,6 +1,9 @@
 package dungeon;
 
 /*
+Player = @
+Vampire = v
+
 Win condition:
     Kill all vampires
         Get a kill by running into a vampire during current turn
@@ -21,24 +24,50 @@ Vampire:
             On top of another vampire
  */
 
+import dungeon.board.Board;
+import dungeon.entities.Player;
+import dungeon.entities.Vampire;
+import java.util.Scanner;
+
 public class Dungeon {
 
-    private int length;
+    private Scanner scanner = new Scanner(System.in);
+
+    private int height;
     private int width;
     private int vampires;
-    private int moves;
+    private int turns;
     private boolean vampiresMove;
 
-    public Dungeon(int length, int width, int vampires, int moves, boolean vampiresMove) {
-        this.length = length;
+    private Board board;
+    private Player player;
+    private Vampire vampire;
+
+    public Dungeon(int height, int width, int vampires, int turns, boolean vampiresMove) {
+        this.height = height;
         this.width = width;
         this.vampires = vampires;
-        this.moves = moves;
+        this.turns = turns;
         this.vampiresMove = vampiresMove;
+
+        init();
+    }
+
+    public void init() {
+        board = new Board(width, height);
+        player = new Player(turns, board);
+        vampire = new Vampire(vampires, board);
     }
 
     public void run() {
-        // starts game
+        while (true) {
+            int x = Integer.parseInt(scanner.nextLine());
+            int y = Integer.parseInt(scanner.nextLine());
+            if (x == -1 || y == -1) {
+                break;
+            }
+            player.takeTurn(board.placePlayer(x, y));
+        }
     }
 
 }
