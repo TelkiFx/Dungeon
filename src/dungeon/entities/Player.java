@@ -17,7 +17,7 @@ public class Player {
         takeTurn(false);
     }
 
-    public void takeTurn(boolean userMoved) {
+    public boolean takeTurn(boolean userMoved) {
         if (userMoved) {
             turns--;
         }
@@ -25,6 +25,7 @@ public class Player {
         coordinateSystem.print();
         System.out.println();
         board.draw();
+        return turns != 0;
     }
 
 }
