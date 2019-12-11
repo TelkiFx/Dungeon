@@ -63,15 +63,24 @@ public class Dungeon {
     }
 
     public void run() {
-        while (true) {
+        boolean enoughTurns = true;
+        while (enoughTurns) {
             String moves = scanner.nextLine();
             if (moves.equals("q")) {
                 break;
             }
             coordinateSystem.placePlayer(moves);
+            if (coordinateSystem.getVampireLocations().size() == 0) {
+                System.out.println("YOU WIN");
+                break;
+            }
             coordinateSystem.placeVampires();
-            player.takeTurn(true);
+            enoughTurns = player.takeTurn(true);
+            if (!enoughTurns) {
+                System.out.println("YOU LOSE");
+            }
         }
+
     }
 
 }
