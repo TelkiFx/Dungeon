@@ -1,12 +1,12 @@
 package dungeon.board;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
 public class CoordinateSystem {
+
+    private Points playerPoint;
 
     private int x;
     private int y;
@@ -14,10 +14,8 @@ public class CoordinateSystem {
     private int height;
     private int numVampires;
 
-    private List<Integer> playerCoords = new ArrayList<Integer>();
-
     private Random random = new Random();
-    private Set<List<Integer>> vampireLocations = new HashSet<List<Integer>>();
+    private Set<Points> vampireLocations = new HashSet<Points>();
     private Board board;
 
     public CoordinateSystem(Board board, int numVampires) {
@@ -57,9 +55,7 @@ public class CoordinateSystem {
         }
         board.build();
         board.getBoard()[y][x] = "@";
-        playerCoords.clear();
-        playerCoords.add(x);
-        playerCoords.add(y);
+        playerPoint = new Points(x, y);
     }
 
     public void placeVampires() {
@@ -67,24 +63,20 @@ public class CoordinateSystem {
         while (vampireLocations.size() < numVampires) {
             int vampireX = random.nextInt(10);
             int vampireY = random.nextInt(10);
-            List<Integer> vampireCoords = new ArrayList<Integer>();
-            vampireCoords.add(vampireX);
-            vampireCoords.add(vampireY);
-            vampireLocations.add(vampireCoords);
-
-            if (!vampireLocations.contains(playerCoords)) {
-                vampireLocations.add(vampireCoords);
+            Points vampirePoint = new Points(vampireX, vampireY);
+            if (!vampirePoint.equals(playerPoint)) {
+                vampireLocations.add(vampirePoint);
                 board.getBoard()[vampireY][vampireX] = "v";
             }
         }
     }
 
-    public Set<List<Integer>> getVampireLocations() {
+    public Set<Points> getVampireLocations() {
         return vampireLocations;
     }
 
-    public List<Integer> getPlayerCoords() {
-        return playerCoords;
+    public Points getPlayerCoords() {
+        return playerPoint;
     }
 
     public int getPlayerX() {
