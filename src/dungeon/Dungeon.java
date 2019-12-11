@@ -39,7 +39,6 @@ public class Dungeon {
     private int turns;
     private boolean vampiresMove;
 
-    private Board board;
     private CoordinateSystem coordinateSystem;
     private Player player;
 
@@ -54,8 +53,8 @@ public class Dungeon {
     }
 
     public void init() {
-        board = new Board(width, height);
-        coordinateSystem = new CoordinateSystem(board, vampires);
+        Board board = new Board(width, height);
+        coordinateSystem = new CoordinateSystem(board, vampires, vampiresMove);
         player = new Player(turns, board, coordinateSystem);
     }
 
