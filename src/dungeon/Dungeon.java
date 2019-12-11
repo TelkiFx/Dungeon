@@ -61,12 +61,12 @@ public class Dungeon {
 
     public void run() {
         while (true) {
-            int x = Integer.parseInt(scanner.nextLine());
-            int y = Integer.parseInt(scanner.nextLine());
-            if (x == -1 || y == -1) {
+            String moves = scanner.nextLine();
+            if (moves.equals("q")) {
                 break;
             }
-            player.takeTurn(board.placePlayer(x, y));
+            board.placePlayer(moves);
+            player.takeTurn(true);
         }
     }
 
