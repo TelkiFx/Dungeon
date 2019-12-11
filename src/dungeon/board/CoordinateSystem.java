@@ -9,12 +9,9 @@ import java.util.Set;
 public class CoordinateSystem {
 
     private Points playerPoint;
-    private Points vampirePoint;
 
     private int playerX;
     private int playerY;
-    private int vampireX;
-    private int vampireY;
     private int width;
     private int height;
     private int numVampires;
@@ -76,14 +73,22 @@ public class CoordinateSystem {
     }
 
     public void placeVampires() {
-        vampireLocations.clear();
+        if (vampiresMove) {
+            vampireLocations.clear();
+        }
         while (vampireLocations.size() < numVampires) {
-            vampireX = random.nextInt(width);
-            vampireY = random.nextInt(height);
-            vampirePoint = new Points(vampireX, vampireY);
+            int vampireX = random.nextInt(width);
+            int vampireY = random.nextInt(height);
+            Points vampirePoint = new Points(vampireX, vampireY);
             if (!vampirePoint.equals(playerPoint)) {
                 vampireLocations.add(vampirePoint);
                 board.getBoard()[vampireY][vampireX] = "v";
+            }
+        }
+
+        if (!vampiresMove) {
+            for (Points point : vampireLocations) {
+                board.getBoard()[point.getY()][point.getX()] = "v";
             }
         }
     }

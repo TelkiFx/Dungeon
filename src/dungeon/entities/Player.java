@@ -12,6 +12,7 @@ public class Player {
 
     public Player(int turns, Board board, CoordinateSystem coordinateSystem) {
         this.turns = turns;
+
         this.board = board;
         this.coordinateSystem = coordinateSystem;
         takeTurn(false);
