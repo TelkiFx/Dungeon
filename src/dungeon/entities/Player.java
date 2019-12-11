@@ -2,7 +2,7 @@ package dungeon.entities;
 
 import dungeon.board.Board;
 import dungeon.board.CoordinateSystem;
-import java.util.List;
+import dungeon.board.Points;
 
 public class Player {
 
@@ -24,13 +24,8 @@ public class Player {
         }
         System.out.println(turns + "\n");
         printCoordinates();
-        System.out.println(coordinateSystem.getPlayerCoords());
-        System.out.println(coordinateSystem.getVampireLocations());
-        for (List<Integer> vampireCoords : coordinateSystem.getVampireLocations()) {
-            System.out.print("v ");
-            for (int coord : vampireCoords) {
-                System.out.print(coord + " ");
-            }
+        for (Points points : coordinateSystem.getVampireLocations()) {
+            System.out.print("v " + points.getX() + " " + points.getY());
             System.out.println();
         }
         System.out.println();
