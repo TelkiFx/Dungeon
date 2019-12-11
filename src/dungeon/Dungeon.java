@@ -25,6 +25,7 @@ Vampire:
  */
 
 import dungeon.board.Board;
+import dungeon.board.CoordinateSystem;
 import dungeon.entities.Player;
 import dungeon.entities.Vampire;
 import java.util.Scanner;
@@ -40,6 +41,7 @@ public class Dungeon {
     private boolean vampiresMove;
 
     private Board board;
+    private CoordinateSystem coordinateSystem;
     private Player player;
     private Vampire vampire;
 
@@ -55,7 +57,8 @@ public class Dungeon {
 
     public void init() {
         board = new Board(width, height);
-        player = new Player(turns, board);
+        coordinateSystem = new CoordinateSystem(board);
+        player = new Player(turns, board, coordinateSystem);
         vampire = new Vampire(vampires, board);
     }
 
@@ -65,7 +68,7 @@ public class Dungeon {
             if (moves.equals("q")) {
                 break;
             }
-            board.placePlayer(moves);
+            coordinateSystem.placePlayer(moves);
             player.takeTurn(true);
         }
     }
