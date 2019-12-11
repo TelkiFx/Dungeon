@@ -4,6 +4,7 @@ public class Board {
 
     private int width;
     private int height;
+
     private String[][] board;
 
     public Board(int width, int height) {
