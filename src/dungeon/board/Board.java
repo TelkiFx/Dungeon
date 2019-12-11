@@ -32,18 +32,35 @@ public class Board {
         System.out.println();
     }
 
-    public boolean placePlayer(int x, int y) {
-        build();
-
-        try {
-            board[y][x] = "@";
-            this.x = x;
-            this.y = y;
-            return true;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            board[this.y][this.x] = "@";
-            return false;
+    public void placePlayer(String moves) {
+        for (char move : moves.toCharArray()) {
+            switch (move) {
+                case 'w':
+                    if (y - 1 >= 0) {
+                        y -= 1;
+                    }
+                    break;
+                case 'a':
+                    if (x - 1 >= 0) {
+                        x -= 1;
+                    }
+                    break;
+                case 's':
+                    if (y + 1 < height) {
+                        y += 1;
+                    }
+                    break;
+                case 'd':
+                    if (x + 1 < width) {
+                        x += 1;
+                    }
+                    break;
+                default:
+                    System.out.println("Not a valid move");
+            }
         }
+        build();
+        board[y][x] = "@";
     }
 
     public int getX() {
