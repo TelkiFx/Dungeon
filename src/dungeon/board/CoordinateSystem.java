@@ -19,15 +19,18 @@ public class CoordinateSystem {
     private int height;
     private int numVampires;
 
+    private boolean vampiresMove;
+
     private Random random = new Random();
     private Set<Points> vampireLocations = new HashSet<Points>();
     private Board board;
 
-    public CoordinateSystem(Board board, int numVampires) {
+    public CoordinateSystem(Board board, int numVampires, boolean vampiresMove) {
         this.board = board;
         this.width = this.board.getWidth();
         this.height = this.board.getHeight();
         this.numVampires = numVampires;
+        this.vampiresMove = vampiresMove;
 
         placePlayer("");
         placeVampires();
@@ -62,14 +65,14 @@ public class CoordinateSystem {
         board.getBoard()[playerY][playerX] = "@";
         playerPoint = new Points(playerX, playerY);
 
-        List<Points> toBeRemoved = new ArrayList<Points>();
-        for (Points point : vampireLocations) {
-            if (playerPoint.equals(point)) {
-                toBeRemoved.add(point);
+        List<Points> killed = new ArrayList<Points>();
+        for (Points vampire : vampireLocations) {
+            if (playerPoint.equals(vampire)) {
+                killed.add(vampire);
                 numVampires--;
             }
         }
-        vampireLocations.removeAll(toBeRemoved);
+        vampireLocations.removeAll(killed);
     }
 
     public void placeVampires() {
