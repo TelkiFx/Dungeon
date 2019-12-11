@@ -10,12 +10,12 @@ public class Player {
     public Player(int turns, Board board) {
         this.turns = turns;
         this.board = board;
-        this.board.placePlayer(0, 0);
+        this.board.placePlayer("");
         takeTurn(false);
     }
 
-    public void takeTurn(boolean isPlaced) {
-        if (isPlaced) {
+    public void takeTurn(boolean move) {
+        if (move) {
             turns--;
         }
         System.out.println(turns + "\n");
