@@ -2,7 +2,6 @@ package dungeon.entities;
 
 import dungeon.board.Board;
 import dungeon.board.CoordinateSystem;
-import dungeon.board.Points;
 
 public class Player {
 
@@ -18,22 +17,14 @@ public class Player {
         takeTurn(false);
     }
 
-    public void takeTurn(boolean move) {
-        if (move) {
+    public void takeTurn(boolean userMoved) {
+        if (userMoved) {
             turns--;
         }
         System.out.println(turns + "\n");
-        printCoordinates();
-        for (Points points : coordinateSystem.getVampireLocations()) {
-            System.out.print("v " + points.getX() + " " + points.getY());
-            System.out.println();
-        }
+        coordinateSystem.print();
         System.out.println();
         board.draw();
-    }
-
-    public void printCoordinates() {
-        System.out.println("@ " + coordinateSystem.getPlayerX() + " " + coordinateSystem.getPlayerY());
     }
 
 }
