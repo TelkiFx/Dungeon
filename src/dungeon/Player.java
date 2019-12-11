@@ -9,20 +9,21 @@ public class Player {
 
 
     public Player(int turns, Board board) {
-        x = 0;
-        y = 0;
         this.turns = turns;
         this.board = board;
+        setPosition(0, 0);
     }
 
     public void setPosition(int x, int y) {
         String[][] builtBoard = board.getBoard();
         board.build();
+
         try {
             builtBoard[y][x] = "@";
+            this.x = x;
+            this.y = y;
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Coordinates not found on board. Default position set.");
-            builtBoard[0][0] = "@";
+            builtBoard[this.y][this.x] = "@";
         }
     }
 
