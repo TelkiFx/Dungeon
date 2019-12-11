@@ -66,7 +66,6 @@ public class CoordinateSystem {
         for (Points point : vampireLocations) {
             if (playerPoint.equals(point)) {
                 toBeRemoved.add(point);
-                System.out.println(vampireLocations.size());
                 numVampires--;
             }
         }
@@ -76,8 +75,8 @@ public class CoordinateSystem {
     public void placeVampires() {
         vampireLocations.clear();
         while (vampireLocations.size() < numVampires) {
-            vampireX = random.nextInt(10);
-            vampireY = random.nextInt(10);
+            vampireX = random.nextInt(width);
+            vampireY = random.nextInt(height);
             vampirePoint = new Points(vampireX, vampireY);
             if (!vampirePoint.equals(playerPoint)) {
                 vampireLocations.add(vampirePoint);
